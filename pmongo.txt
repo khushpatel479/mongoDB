@@ -1,0 +1,380 @@
+Microsoft Windows [Version 10.0.19045.4894]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Acer>mongosh
+Current Mongosh Log ID: 66ffcc42f12953ed59c73bf7
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.1
+Using MongoDB:          8.0.0
+Using Mongosh:          2.3.1
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-10-03T17:02:29.264+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show tables
+
+test> show databases
+admin   40.00 KiB
+config  72.00 KiB
+local   40.00 KiB
+test> use iant
+switched to db iant
+iant> show collections
+
+iant> db.createCollection("stud")
+{ ok: 1 }
+iant> show collections
+stud
+iant> db.stud.insertOne({sno:111,sname:"khush",fees:37500,course:"Node"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66ffcffef12953ed59c73bf8')
+}
+iant> db.stud.find
+[Function: find] AsyncFunction {
+  returnsPromise: true,
+  apiVersions: [ 1, Infinity ],
+  returnType: 'Cursor',
+  serverVersions: [ '0.0.0', '999.999.999' ],
+  topologies: [ 'ReplSet', 'Sharded', 'LoadBalanced', 'Standalone' ],
+  deprecated: false,
+  platforms: [ 'Compass', 'Browser', 'CLI' ],
+  isDirectShellCommand: false,
+  acceptsRawInput: false,
+  shellCommandCompleter: undefined,
+  help: [Function (anonymous)] Help
+}
+iant> db.stud.find()
+[
+  {
+    _id: ObjectId('66ffcffef12953ed59c73bf8'),
+iant> db.stud.find({fees:35000})
+
+iant> db.stud.find({fees:3500})
+
+iant> db.stud.find({fees:45000})
+[
+  {
+    _id: ObjectId('66ffd0adf12953ed59c73bf9'),
+    sno: 112,
+    sname: 'Raj',
+    fees: 45000,
+    course: 'Fullstack'
+  },
+  {
+    _id: ObjectId('66ffd0eaf12953ed59c73bfb'),
+    sno: 114,
+    sname: 'b',
+    fees: 45000,
+    course: 'Node'
+  }
+]
+iant> db.stud.find({sname:"khush"})
+[
+  {
+    _id: ObjectId('66ffcffef12953ed59c73bf8'),
+    sno: 111,
+    sname: 'khush',
+    fees: 37500,
+    course: 'Node'
+  }
+]
+iant> db.createCollections test1
+Uncaught:
+SyntaxError: Missing semicolon. (1:20)
+
+> 1 | db.createCollections test1
+    |                     ^
+  2 |
+
+iant> db.createCollections("test1")
+TypeError: db.createCollections is not a function
+iant> db.createCollection("test1")
+{ ok: 1 }
+iant> db.test1.insertMany({name:"a",fees:"3400",email:"a@gmail.com"},)
+
+MongoInvalidArgumentError: Argument "docs" must be an array of documents
+iant>
+
+iant> db.test1.insertMany({name:"a",fees:"3400",email:"a@gmail.com"},{name:"b",fees:6700,email:"b@gmail.com"},{name:"c",fees:9000,email:"c@gmail.com"})
+MongoInvalidArgumentError: Argument "docs" must be an array of documents
+iant> db.test1.insertMany[{name:"a",fees:"3400",email:"a@gmail.com"},{name:"b",fees:6700,email:"b@gmail.com"},{name:"c",fees:9000,email:"c@gmail.com"}]
+
+iant> db.test1.find()
+
+iant> db.test1.insertMany([{name:"a",fees:"3400",email:"a@gmail.com"},{name:"b",fees:6700,email:"b@gmail.com"},{name:"c",fees:9000,email:"c@gmail.com"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66ffd470f12953ed59c73bfe'),
+    '1': ObjectId('66ffd470f12953ed59c73bff'),
+    '2': ObjectId('66ffd470f12953ed59c73c00')
+  }
+}
+iant> db.test1.find()
+[
+  {
+    _id: ObjectId('66ffd470f12953ed59c73bfe'),
+    name: 'a',
+    fees: '3400',
+    email: 'a@gmail.com'
+  },
+  {
+    _id: ObjectId('66ffd470f12953ed59c73bff'),
+    name: 'b',
+    fees: 6700,
+    email: 'b@gmail.com'
+  },
+  {
+    _id: ObjectId('66ffd470f12953ed59c73c00'),
+    name: 'c',
+    fees: 9000,
+    email: 'c@gmail.com'
+  }
+]
+iant> db.test1.find({}).skip(3)
+
+iant> db.test1.find({}).skip(1)
+[
+  {
+    _id: ObjectId('66ffd470f12953ed59c73bff'),
+    name: 'b',
+    fees: 6700,
+    email: 'b@gmail.com'
+  },
+  {
+    _id: ObjectId('66ffd470f12953ed59c73c00'),
+    name: 'c',
+    fees: 9000,
+    email: 'c@gmail.com'
+  }
+]
+iant> db.test1.find({}).sort()
+[
+  {
+    _id: ObjectId('66ffd470f12953ed59c73bfe'),
+    name: 'a',
+    fees: '3400',
+    email: 'a@gmail.com'
+  },
+  {
+    _id: ObjectId('66ffd470f12953ed59c73bff'),
+    name: 'b',
+    fees: 6700,
+    email: 'b@gmail.com'
+  },
+  {
+    _id: ObjectId('66ffd470f12953ed59c73c00'),
+    name: 'c',
+    fees: 9000,
+    email: 'c@gmail.com'
+  }
+]
+iant> db.stud.find({}).sort("sname":1)
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:29)
+
+> 1 | db.stud.find({}).sort("sname":1)
+    |                              ^
+  2 |
+
+iant> db.stud.find({}).sort("sname")
+[
+  {
+    _id: ObjectId('66ffd0adf12953ed59c73bf9'),
+    sno: 112,
+    sname: 'Raj',
+    fees: 45000,
+    course: 'Fullstack'
+  },
+  {
+    _id: ObjectId('66ffd0c8f12953ed59c73bfa'),
+    sno: 113,
+    sname: 'a',
+    fees: 65000,
+    course: 'Django'
+  },
+  {
+    _id: ObjectId('66ffd0eaf12953ed59c73bfb'),
+    sno: 114,
+    sname: 'b',
+    fees: 45000,
+    course: 'Node'
+  },
+  {
+    _id: ObjectId('66ffd0fdf12953ed59c73bfc'),
+    sno: 115,
+    sname: 'c',
+    fees: 65000,
+    course: 'Flutter'
+  },
+  {
+    _id: ObjectId('66ffd115f12953ed59c73bfd'),
+    sno: 116,
+    sname: 'd',
+    fees: 25000,
+    course: 'Python'
+  },
+  {
+    _id: ObjectId('66ffcffef12953ed59c73bf8'),
+    sno: 111,
+    sname: 'khush',
+    fees: 37500,
+    course: 'Node'
+  }
+]
+iant> db.stud.find({}).sort("sname",1)
+[
+  {
+    _id: ObjectId('66ffd0adf12953ed59c73bf9'),
+    sno: 112,
+    sname: 'Raj',
+    fees: 45000,
+    course: 'Fullstack'
+  },
+  {
+    _id: ObjectId('66ffd0c8f12953ed59c73bfa'),
+    sno: 113,
+    sname: 'a',
+    fees: 65000,
+    course: 'Django'
+  },
+  {
+    _id: ObjectId('66ffd0eaf12953ed59c73bfb'),
+    sno: 114,
+    sname: 'b',
+    fees: 45000,
+    course: 'Node'
+  },
+  {
+    _id: ObjectId('66ffd0fdf12953ed59c73bfc'),
+    sno: 115,
+    sname: 'c',
+    fees: 65000,
+    course: 'Flutter'
+  },
+  {
+    _id: ObjectId('66ffd115f12953ed59c73bfd'),
+    sno: 116,
+    sname: 'd',
+    fees: 25000,
+    course: 'Python'
+  },
+  {
+    _id: ObjectId('66ffcffef12953ed59c73bf8'),
+    sno: 111,
+    sname: 'khush',
+    fees: 37500,
+    course: 'Node'
+  }
+]
+iant> db.stud.find({}).sort({"sname":1})
+[
+  {
+    _id: ObjectId('66ffd0adf12953ed59c73bf9'),
+    sno: 112,
+    sname: 'Raj',
+    fees: 45000,
+    course: 'Fullstack'
+  },
+  {
+    _id: ObjectId('66ffd0c8f12953ed59c73bfa'),
+    sno: 113,
+    sname: 'a',
+    fees: 65000,
+    course: 'Django'
+  },
+  {
+    _id: ObjectId('66ffd0eaf12953ed59c73bfb'),
+    sno: 114,
+    sname: 'b',
+    fees: 45000,
+    course: 'Node'
+  },
+  {
+    _id: ObjectId('66ffd0fdf12953ed59c73bfc'),
+    sno: 115,
+    sname: 'c',
+    fees: 65000,
+    course: 'Flutter'
+  },
+  {
+    _id: ObjectId('66ffd115f12953ed59c73bfd'),
+    sno: 116,
+    sname: 'd',
+    fees: 25000,
+    course: 'Python'
+  },
+  {
+    _id: ObjectId('66ffcffef12953ed59c73bf8'),
+    sno: 111,
+    sname: 'khush',
+    fees: 37500,
+    course: 'Node'
+  }
+]
+iant> db.stud.find({}).sort({"sname":-1})
+[
+  {
+    _id: ObjectId('66ffcffef12953ed59c73bf8'),
+    sno: 111,
+    sname: 'khush',
+    fees: 37500,
+    course: 'Node'
+  },
+  {
+    _id: ObjectId('66ffd115f12953ed59c73bfd'),
+    sno: 116,
+    sname: 'd',
+    fees: 25000,
+    course: 'Python'
+  },
+  {
+    _id: ObjectId('66ffd0fdf12953ed59c73bfc'),
+    sno: 115,
+    sname: 'c',
+    fees: 65000,
+    course: 'Flutter'
+  },
+  {
+    _id: ObjectId('66ffd0eaf12953ed59c73bfb'),
+    sno: 114,
+    sname: 'b',
+    fees: 45000,
+    course: 'Node'
+  },
+  {
+    _id: ObjectId('66ffd0c8f12953ed59c73bfa'),
+    sno: 113,
+    sname: 'a',
+    fees: 65000,
+    course: 'Django'
+  },
+  {
+    _id: ObjectId('66ffd0adf12953ed59c73bf9'),
+    sno: 112,
+    sname: 'Raj',
+    fees: 45000,
+    course: 'Fullstack'
+  }
+]
+iant> db.stud.find({}).count()
+6
+iant> db.test1.drop()
+true
+iant> sow collections()
+Uncaught:
+SyntaxError: Missing semicolon. (1:3)
+
+> 1 | sow collections()
+    |    ^
+  2 |
+
+iant> show collections()
+MongoshInvalidInputError: [COMMON-10001] 'collections()' is not a valid argument for "show".
+iant> show collections
+stud
+iant>
