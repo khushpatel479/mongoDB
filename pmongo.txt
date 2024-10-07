@@ -378,3 +378,10 @@ MongoshInvalidInputError: [COMMON-10001] 'collections()' is not a valid argument
 iant> show collections
 stud
 iant>
+
+operator syntax : 
+Atlas atlas-uwoq34-shard-0 [primary] iant> db.books.find({"no_of_reviews":{$eq:3}})
+less than : 
+db.books.find({"no_of_reviews":{$lt:3}})
+greater than
+db.books.find({"no_of_reviews":{$gt:3}})
