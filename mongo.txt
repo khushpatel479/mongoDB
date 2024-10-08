@@ -48,3 +48,7 @@ true
 iant> sow collections()
 
 iant> db.stud.find({}).sort({"sname":-1})
+
+to update data 
+
+Atlas atlas-uwoq34-shard-0 [primary] iant> db.stud.updateOne({name:"a"},{$set:{email:"abc@gmail.com"}})
